@@ -4,15 +4,18 @@
       <view class="snaps"></view>
     </view>
     <PayMoney />
+    <Recommend />
   </view>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import PayMoney from './paymoney.vue';
+import Recommend from './recommend.vue';
 export default defineComponent({
   components: {
-    PayMoney
+    PayMoney,
+    Recommend
   },
   setup() {
     
@@ -25,7 +28,7 @@ export default defineComponent({
   position: relative;
   z-index: 999;
   width: 100%;
-  height: 5000rpx;
+  padding-bottom: 40rpx;
   background: #F7F8F9;
   border-radius: 48rpx 48rpx 0 0 ;
   overflow: hidden;
