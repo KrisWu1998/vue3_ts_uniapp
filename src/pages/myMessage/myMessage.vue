@@ -18,6 +18,7 @@
 		<view class="handle-box">
 			<view
 				v-for="(item, index) in handleList"
+				:key="index"
 				class="handle-item"
 				@tap="handleRead(index)"
 			>
@@ -32,13 +33,15 @@
 		<view style="flex: 1; overflow: hidden">
 			<van-pull-refresh
 				v-model="loading"
+				:disabled="!!domScrollTop"
 				@refresh="onRefresh"
 				class="content-pull-box"
-				pull-distance="0">
+				>
 				<view 
 					v-for="(tabsItem, tabsIndex) in tabs"
 					:key="tabsIndex"
 					v-show="activeIndex === tabsIndex"
+					@scroll="handleScroll($event)"
 					class="myMessage-content-wrap">
 					<view v-if="globalData[tabsItem.id].length">
 						<MessageItem
@@ -63,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, Ref, onMounted } from 'vue'
+import { defineComponent, reactive, ref, toRefs, watch } from 'vue'
 import { Dialog, Toast } from 'vant';
 import Tabs from '@/components/tabs';
 import MessageItem from '@/components/myMessage/messageItem.vue';
@@ -83,8 +86,9 @@ export default defineComponent({
 		DetailPopup
 	},
 	setup () {
-		const DetailPopup:Ref<HTMLElement> = ref(null);
+		const DetailPopup = ref(null);
 		const state = reactive({
+			domScrollTop: 0,
 			loading: false,
 			isShowDeleteModal: false, // 控制删除已读Modal
 			isShowReadModal: false, // 控制一键已读Modal
@@ -188,7 +192,7 @@ export default defineComponent({
 				setTimeout(()=>{
 					const { globalData, tabs } = state;
 					// 是否存在已读
-					const hasCanRead = globalData[id].some(item=>{
+					const hasCanRead = globalData[id].some((item: any)=>{
 						return item.isRead
 					});
 					if (!hasCanRead) {
@@ -198,7 +202,7 @@ export default defineComponent({
 							duration: 1000
 						});
 					}
-					const newList = globalData[id].filter(item=>!item.isRead) || [];
+					const newList = globalData[id].filter((item: any)=>!item.isRead) || [];
 					globalData[id] = newList;
 					if (!globalData[id].length) {
 						tabs[activeIndex].number = 0;
@@ -216,7 +220,7 @@ export default defineComponent({
 				setTimeout(()=>{
 					const { globalData, tabs } = state;
 					// 校验是否存在未读信息;
-					const hasNoRead = globalData[id].some(item=>{
+					const hasNoRead = globalData[id].some((item: any)=>{
 						return !item.isRead
 					})
 					if (!hasNoRead) {
@@ -226,7 +230,7 @@ export default defineComponent({
 							duration: 1000
 						});
 					}
-					globalData[id].forEach(item=>{
+					globalData[id].forEach((item: any)=>{
 						item.isRead = true;
 					});
 					tabs[activeIndex].number = 0;
@@ -238,7 +242,7 @@ export default defineComponent({
 				}, 1000)
 				
 			},
-			handleDetail (info) {
+			handleDetail (info: object) {
 				const popupDom = DetailPopup.value;
 				popupDom?.open(info);
 			},
@@ -259,16 +263,16 @@ export default defineComponent({
 					globalData[id].push(...pushList);
 					state.loading = false;
 				}, 1000)
-				
+			},
+			handleScroll () {
+				const dom = document.querySelector('.myMessage-content-wrap')
+				state.domScrollTop = dom?.scrollTop;
 			}
 		})
-
-		onMounted(()=>{
-			console.log(document.querySelector('.myMessage-content-wrap'))
-			window.addEventListener('scroll', (e) =>{
-				console.log('scroll')
-			})
+		watch(()=>state.activeIndex, (newVal, oldVal) =>{
+			state.domScrollTop = 0;
 		})
+
 		return {
 			DetailPopup,
 			...toRefs(state),
