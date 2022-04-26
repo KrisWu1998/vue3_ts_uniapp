@@ -34,7 +34,7 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const methods = reactive({
-      handleChangeStatus () {
+      handleChangeStatus ():void {
         const { info, parentIndex, childIndex } = props;
         if (!info.isGet) {
           emit('confirm', parentIndex, childIndex)

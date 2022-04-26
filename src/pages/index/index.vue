@@ -14,17 +14,6 @@ export default defineComponent({
     Header,
     Content,
   },
-	setup () {
-		const methods = reactive({
-			handleClick () {
-				
-			}
-		})
-		return {
-			...methods
-		}
-	}
-	
 })
 </script>
 

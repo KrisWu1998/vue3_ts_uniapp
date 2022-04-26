@@ -107,7 +107,7 @@ export default defineComponent({
     });
     const methods = reactive({
       // 修改是否已领取金币状态
-      setGetMoneyStatus (parantIndex, childIndex) {
+      setGetMoneyStatus (parantIndex: number, childIndex: number): void {
         state.list[parantIndex].child[childIndex].isGet = true;
         const currentData = state.list[parantIndex].child[childIndex];
         // this.props.onAddUserMoney(currentData.addMoney);
@@ -119,7 +119,7 @@ export default defineComponent({
         });
       },
       // 关闭弹窗
-      handleClose () {
+      handleClose ():void {
         emit('confirm', false)
       }
     })

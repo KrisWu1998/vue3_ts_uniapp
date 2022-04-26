@@ -6,7 +6,8 @@
         v-for="(item, index) in leftInfo"
         :key="index"
         :style="{backgroundImage: getUrl(item.url)}"
-        class="icon reset-img "
+        class="icon reset-img"
+        @tap="handleGoMeesage"
       >
         <view class="tips" v-if="item.tipsNum">
           <text class="tips-text">{{ item.tipsNum }}</text>
@@ -74,9 +75,8 @@
   </view>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
-
 export default defineComponent({
   setup(_, { emit }) {
     const state = reactive({
@@ -131,7 +131,7 @@ export default defineComponent({
       getUrl (url) {
         return `url(${new URL(url, import.meta.url).href})`;
       },
-      handleTap (item, index) {
+      handleTap (item: Object, index: number): void {
         if (item.isSign) { // 签到切换
           const flag = state.rightInfo[index].noSignIn;
           state.rightInfo[index].noSignIn = !flag;
@@ -139,15 +139,20 @@ export default defineComponent({
           emit('confirm')
         }
       },
-      getMargin (index, list) {
+      getMargin (index: number, list: Array): any {
         const len = list.length;
         if (index === 0 || index + 1 === len) return '72rpx';
         if (index === 2) return '14rpx';
         return 0;
       },
-      updateMoney (newNum) {
+      updateMoney (newNum: number): void {
         const oldNum = state.rightInfo[0].num
         state.rightInfo[0].num = oldNum + newNum
+      },
+      handleGoMeesage (): void {
+        uni.navigateTo({
+          url: '/pages/myMessage/myMessage'
+        });
       }
     })
     return {

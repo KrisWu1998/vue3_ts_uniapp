@@ -32,11 +32,11 @@ export default defineComponent({
     })
 
     const methods = reactive({
-      addUserMoney (newMoney) {
+      addUserMoney (newMoney: number): void {
         const topDom = top.value
         topDom?.updateMoney(newMoney)
       },
-      handleChangePopupStatus (flag = true) {
+      handleChangePopupStatus (flag: Boolean = true): void {
         state.isShow = flag
       }
     });

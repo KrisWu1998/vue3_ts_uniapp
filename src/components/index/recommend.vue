@@ -24,7 +24,7 @@
 	</view>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import Item from './recommendItem.vue';
 export default defineComponent({
@@ -67,7 +67,7 @@ export default defineComponent({
 		});
 
 		const methods = reactive({
-			handleMore () {
+			handleMore ():void {
 				state.loading = true;
 				setTimeout(()=>{
 					const list = JSON.parse(JSON.stringify(state.info));
