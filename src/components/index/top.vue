@@ -78,7 +78,7 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 
 export default defineComponent({
-  setup() {
+  setup(_, { emit }) {
     const state = reactive({
       leftInfo: [
         {
@@ -132,9 +132,11 @@ export default defineComponent({
         return `url(${new URL(url, import.meta.url).href})`;
       },
       handleTap (item, index) {
-        if (item.isSign) {
+        if (item.isSign) { // 签到切换
           const flag = state.rightInfo[index].noSignIn;
           state.rightInfo[index].noSignIn = !flag;
+        } else { // 查看获取金币任务
+          emit('confirm')
         }
       },
       getMargin (index, list) {
@@ -142,6 +144,10 @@ export default defineComponent({
         if (index === 0 || index + 1 === len) return '72rpx';
         if (index === 2) return '14rpx';
         return 0;
+      },
+      updateMoney (newNum) {
+        const oldNum = state.rightInfo[0].num
+        state.rightInfo[0].num = oldNum + newNum
       }
     })
     return {
@@ -281,9 +287,9 @@ export default defineComponent({
           align-items: center;
           position: absolute;
           bottom: 0;
-          width: 450rpx;
+          // width: 450rpx;
           padding: 24rpx 109rpx;
-          font-size: 40rpx;
+          font-size: 38rpx;
           color: #FFF;
           background-image: linear-gradient(#FA5721, #FFA901);
           border-radius: 50rpx;

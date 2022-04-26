@@ -1,21 +1,50 @@
 <template>
   <view class="content-box">
-    <Top />
+    <Top 
+      ref="top"
+      @confirm="handleChangePopupStatus"
+    />
     <Popup />
+    <MyPopup
+      :isShow="isShow"
+      @addUserMoney="addUserMoney"
+      @confirm="handleChangePopupStatus"
+    />
   </view>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script lang="ts">
+import { defineComponent, Ref, ref, reactive, toRefs } from 'vue'
 import Top from '@/components/index/top.vue';
 import Popup from '@/components/index/popup.vue';
+import MyPopup from '@/components/myPopup';
 export default defineComponent({
   components: {
     Top,
-    Popup
+    Popup,
+    MyPopup
   },
   setup() {
-    
+    const top:Ref<HTMLElement> = ref(null);
+
+    const state = reactive({
+      isShow: false
+    })
+
+    const methods = reactive({
+      addUserMoney (newMoney) {
+        const topDom = top.value
+        topDom?.updateMoney(newMoney)
+      },
+      handleChangePopupStatus (flag = true) {
+        state.isShow = flag
+      }
+    });
+    return {
+      top,
+      ...toRefs(state),
+      ...toRefs(methods)
+    }
   },
 })
 </script>

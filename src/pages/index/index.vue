@@ -12,7 +12,7 @@ import Content from './components/content';
 export default defineComponent({
   components: { 
     Header,
-    Content
+    Content,
   },
 	setup () {
 		const methods = reactive({
