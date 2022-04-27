@@ -13,7 +13,16 @@
                 "navigationBarTitleText": "消息"
             }
             
-        }
+        },
+				{
+					"path" : "pages/shop/shop",
+					"style" :                                                                                    
+					{
+							"navigationBarTitleText": "",
+							"enablePullDownRefresh": false
+					}
+					
+			}
     ],
 	
 	"globalStyle": {

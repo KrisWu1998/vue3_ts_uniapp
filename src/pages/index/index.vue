@@ -6,22 +6,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
-import Header from './components/header';
-import Content from './components/content';
+import { defineComponent, reactive } from "vue";
+import Header from "./components/header";
+import Content from "./components/content";
 export default defineComponent({
-  components: { 
+  components: {
     Header,
     Content,
   },
-})
+});
 </script>
 
 <style lang="less" scoped>
-.wrap{
+.wrap {
   width: 100%;
   min-height: 100vh;
 }
-
-
 </style>

@@ -1,17 +1,14 @@
 <template>
-  <van-popup 
+  <van-popup
     v-model:show="isShow"
-    position="bottom" 
+    position="bottom"
     round
     style="height: 837rpx"
   >
     <view class="message-detail-popup">
       <view class="message-detail-content">
-        <scroll-view
-          :scroll-y="true"
-          style="height: 100%">
-          <view class="message-detail-content-title"
-          >
+        <scroll-view :scroll-y="true" style="height: 100%">
+          <view class="message-detail-content-title">
             {{ info.title }}
           </view>
           <view class="message-detail-content-body">
@@ -20,42 +17,37 @@
         </scroll-view>
       </view>
       <view class="message-detail-bottom">
-        <view class="message-detail-bottom-delete" @click="close">
-          删除
-        </view>
-        <view class="message-detail-bottom-submit" @click="close">
-          确定
-        </view>
+        <view class="message-detail-bottom-delete" @click="close"> 删除 </view>
+        <view class="message-detail-bottom-submit" @click="close"> 确定 </view>
       </view>
     </view>
   </van-popup>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
-  setup () {
+  setup() {
     const state = reactive({
       isShow: false,
-      info: {}
+      info: {},
     });
     const methods = reactive({
-      open (info) {
+      open(info: object) {
         state.info = {};
         state.isShow = true;
         state.info = info;
       },
-      close () {
+      close() {
         state.isShow = false;
-      }
+      },
     });
     return {
       ...toRefs(state),
-      ...toRefs(methods)
-    }
-  }
-
-})
+      ...toRefs(methods),
+    };
+  },
+});
 </script>
 
 <style lang="less" scoped>
@@ -84,8 +76,8 @@ export default defineComponent({
     .message-detail-bottom-delete {
       padding: 32rpx 79rpx;
       font-size: 36rpx;
-      color: #BFBFBF;
-      background: #F2F2F2;
+      color: #bfbfbf;
+      background: #f2f2f2;
     }
     .message-detail-bottom-submit {
       flex: 1;
@@ -94,11 +86,10 @@ export default defineComponent({
       align-items: center;
       /* padding: 32rpx 224rpx; */
       font-size: 36rpx;
-      color: #FFF;
-      background: #00C8BE;
+      color: #fff;
+      background: #00c8be;
       box-sizing: border-box;
     }
   }
 }
-
 </style>

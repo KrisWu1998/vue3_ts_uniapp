@@ -3,7 +3,11 @@
     <view
       v-for="(tabsItem, tabsIndex) in tabs"
       :key="tabsIndex"
-      :class="['reset-tabs-item', tabsItem.number ? 'hasMsg': '', activeIndex == tabsIndex ? 'active' : '']"
+      :class="[
+        'reset-tabs-item',
+        tabsItem.number ? 'hasMsg' : '',
+        activeIndex == tabsIndex ? 'active' : '',
+      ]"
       @tap="handleChangeActiveIndex(tabsIndex)"
     >
       {{ tabsItem.title }}
@@ -12,29 +16,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   props: {
     tabs: {
       type: Array,
-      default: () => ([])
+      default: () => [],
     },
     activeIndex: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
-  setup (_, { emit }) {
+  setup(_, { emit }) {
     const methods = reactive({
-      handleChangeActiveIndex (index:number): void {
-        emit('update:activeIndex', index);
-      }
-    })
+      handleChangeActiveIndex(index: number): void {
+        emit("update:activeIndex", index);
+      },
+    });
     return {
-      ...toRefs(methods)
-    }
-  }
-})
+      ...toRefs(methods),
+    };
+  },
+});
 </script>
 
 <style lang="less" scoped>
@@ -55,7 +59,7 @@ export default defineComponent({
       font-weight: bold;
       color: rgba(51, 51, 51, 1);
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         bottom: 0;
         left: 50%;
@@ -68,7 +72,7 @@ export default defineComponent({
     }
     &.hasMsg {
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: -16rpx;
         right: -16rpx;

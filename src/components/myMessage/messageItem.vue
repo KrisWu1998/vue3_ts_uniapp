@@ -8,10 +8,7 @@
           style="width: 48rpx; height: 48rpx"
         >
         </image>
-        <view 
-          v-if="!info.isRead"
-          class="messageItem-box-left-icon" 
-        />
+        <view v-if="!info.isRead" class="messageItem-box-left-icon" />
       </view>
       <view class="messageItem-box-right">
         <view class="item-box-r-top">
@@ -19,7 +16,7 @@
             {{ info.title }}
           </text>
           <text class="item-box-r-t-right">
-            {{ info. time}}
+            {{ info.time }}
           </text>
         </view>
         <view class="item-box-r-bottom">
@@ -31,37 +28,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   props: {
     info: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     iconUrl: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
-  setup () {
+  setup() {
     const methods = reactive({
-      confirm () {
-
-      }
+      confirm() {},
     });
     return {
-      ...toRefs(methods)
-    }
-  }
-
-})
+      ...toRefs(methods),
+    };
+  },
+});
 </script>
 
 <style lang="less" scoped>
 .messageItem-card-wrap {
   display: flex;
   padding: 24rpx 0 0 30rpx;
-  background: #FFF;
+  background: #fff;
   .messageItem-box {
     display: flex;
     width: 100%;

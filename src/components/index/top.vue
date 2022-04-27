@@ -5,7 +5,7 @@
       <view
         v-for="(item, index) in leftInfo"
         :key="index"
-        :style="{backgroundImage: getUrl(item.url)}"
+        :style="{ backgroundImage: getUrl(item.url) }"
         class="icon reset-img"
         @tap="handleGoMeesage"
       >
@@ -16,25 +16,21 @@
     </view>
     <!-- 右侧 -->
     <view class="right">
-      <view 
-        v-for="(item ,index) in rightInfo"
+      <view
+        v-for="(item, index) in rightInfo"
         :key="index"
         @tap="handleTap(item, index)"
         class="tags-item"
       >
         <view
-          :style="{backgroundImage: getUrl(item.url)}"
+          :style="{ backgroundImage: getUrl(item.url) }"
           class="tags-item-left reset-img"
         />
         <text
           class="flex-alignt"
-          :style="{fontSize: item.isMoney ? '32rpx' : '22rpx'}"
+          :style="{ fontSize: item.isMoney ? '32rpx' : '22rpx' }"
         >
-          {{
-            item.isMoney ? item.num : (
-              item.noSignIn ? '未签到' : '已签到'
-            )
-          }}
+          {{ item.isMoney ? item.num : item.noSignIn ? "未签到" : "已签到" }}
         </text>
       </view>
     </view>
@@ -46,13 +42,13 @@
           :key="index"
           :style="{
             marginTop: getMargin(index, midInfo),
-            marginRight: index + 1 === midInfo.length ? 0 : '34rpx'
+            marginRight: index + 1 === midInfo.length ? 0 : '34rpx',
           }"
           class="item"
         >
           {{ item.text }}
           <view
-            :style="{backgroundImage: getUrl(item.url)}"
+            :style="{ backgroundImage: getUrl(item.url) }"
             class="img reset-img"
           />
         </view>
@@ -64,7 +60,7 @@
             <view class="flex-juest setpNumber">{{ stepNumber }}</view>
             <view class="flex-juest">每日24:00自动清零</view>
           </view>
-          <view class="partition-button">
+          <view class="partition-button" @click="handleGoShop">
             {{ `瓜分${money}现金` }}
           </view>
           <view class="boy reset-img" />
@@ -76,91 +72,98 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   setup(_, { emit }) {
     const state = reactive({
       leftInfo: [
         {
-          url: '../../static/msg.png',
-          tipsNum: 12
+          url: "../../static/msg.png",
+          tipsNum: 12,
         },
         {
-          url: '../../static/rule.png',
-          tipsNum: 2
-        }
+          url: "../../static/rule.png",
+          tipsNum: 2,
+        },
       ],
       rightInfo: [
         {
-          url: '../../static/money.png',
+          url: "../../static/money.png",
           isMoney: true,
-          num: 32
+          num: 32,
         },
         {
-          url: '../../static/signIn.png',
+          url: "../../static/signIn.png",
           isSign: true,
-          noSignIn: false
-        }
+          noSignIn: false,
+        },
       ],
       midInfo: [
         {
-          url: '../../static/addMoney.png',
-          text: '支付成功'
+          url: "../../static/addMoney.png",
+          text: "支付成功",
         },
         {
-          url: '../../static/addMoney.png',
-          text: '支付成功'
+          url: "../../static/addMoney.png",
+          text: "支付成功",
         },
         {
-          url: '../../static/addMoney.png',
-          text: '运动步数'
+          url: "../../static/addMoney.png",
+          text: "运动步数",
         },
         {
-          url: '../../static/addMoney_new.png',
-          text: '新人专享'
+          url: "../../static/addMoney_new.png",
+          text: "新人专享",
         },
         {
-          url: '../../static/addMoney.png',
-          text: '运动步数'
-        }
+          url: "../../static/addMoney.png",
+          text: "运动步数",
+        },
       ],
       money: 888,
-      stepNumber: 2748
+      stepNumber: 2748,
     });
     const methods = reactive({
-      getUrl (url) {
+      getUrl(url: string) {
         return `url(${new URL(url, import.meta.url).href})`;
       },
-      handleTap (item: Object, index: number): void {
-        if (item.isSign) { // 签到切换
+      handleTap(item: Object, index: number): void {
+        if (item.isSign) {
+          // 签到切换
           const flag = state.rightInfo[index].noSignIn;
           state.rightInfo[index].noSignIn = !flag;
-        } else { // 查看获取金币任务
-          emit('confirm')
+        } else {
+          // 查看获取金币任务
+          emit("confirm");
         }
       },
-      getMargin (index: number, list: Array): any {
+      getMargin(index: number, list: Array<any>): any {
         const len = list.length;
-        if (index === 0 || index + 1 === len) return '72rpx';
-        if (index === 2) return '14rpx';
+        if (index === 0 || index + 1 === len) return "72rpx";
+        if (index === 2) return "14rpx";
         return 0;
       },
-      updateMoney (newNum: number): void {
-        const oldNum = state.rightInfo[0].num
-        state.rightInfo[0].num = oldNum + newNum
+      updateMoney(newNum: number): void {
+        const oldNum = (state.rightInfo as any[])[0].num;
+        state.rightInfo[0].num = oldNum + newNum;
       },
-      handleGoMeesage (): void {
+      handleGoMeesage(): void {
         uni.navigateTo({
-          url: '/pages/myMessage/myMessage'
+          url: "/pages/myMessage/myMessage",
         });
-      }
-    })
+      },
+      handleGoShop() {
+        uni.navigateTo({
+          url: "/pages/shop/shop",
+        });
+      },
+    });
     return {
       ...toRefs(state),
-      ...toRefs(methods)
-    }
+      ...toRefs(methods),
+    };
   },
-})
+});
 </script>
 
 <style lang="less" scoped>
@@ -193,12 +196,12 @@ export default defineComponent({
         width: 24rpx;
         height: 24rpx;
         font-size: 16rpx;
-        color: #FFF;
-        background: #FF876A;
-        border: 2rpx solid #FFF;
+        color: #fff;
+        background: #ff876a;
+        border: 2rpx solid #fff;
         border-radius: 50%;
         .tips-text {
-          transform: scale(.8);
+          transform: scale(0.8);
         }
       }
     }
@@ -215,9 +218,9 @@ export default defineComponent({
       min-width: 100%;
       margin-bottom: 24rpx;
       padding: 6rpx 10rpx;
-      color: #027C64;
+      color: #027c64;
       font-weight: bold;
-      background: rgba(255, 255, 255, .7);
+      background: rgba(255, 255, 255, 0.7);
       border-top-left-radius: 27rpx;
       border-bottom-left-radius: 27rpx;
       :nth-child(1) {
@@ -246,7 +249,7 @@ export default defineComponent({
         flex-direction: column;
         font-size: 22rpx;
         font-weight: bold;
-        color: #105B50;
+        color: #105b50;
         .img {
           width: 96rpx;
           height: 96rpx;
@@ -278,12 +281,15 @@ export default defineComponent({
           padding-bottom: 119rpx;
           font-size: 24rpx;
           color: #999999;
-          background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, .7));
+          background-image: linear-gradient(
+            rgba(255, 255, 255, 1),
+            rgba(255, 255, 255, 0.7)
+          );
           border-radius: 50%;
           box-sizing: border-box;
           .setpNumber {
             font-size: 80rpx;
-            color: #084F3E;
+            color: #084f3e;
           }
         }
         .partition-button {
@@ -295,8 +301,8 @@ export default defineComponent({
           // width: 450rpx;
           padding: 24rpx 109rpx;
           font-size: 38rpx;
-          color: #FFF;
-          background-image: linear-gradient(#FA5721, #FFA901);
+          color: #fff;
+          background-image: linear-gradient(#fa5721, #ffa901);
           border-radius: 50rpx;
           box-sizing: border-box;
         }
@@ -306,7 +312,7 @@ export default defineComponent({
           bottom: 100rpx;
           width: 45rpx;
           height: 124rpx;
-          background-image: url('@/static/boy.png');
+          background-image: url("@/static/boy.png");
         }
         .girl {
           position: absolute;
@@ -314,7 +320,7 @@ export default defineComponent({
           bottom: 100rpx;
           width: 76rpx;
           height: 104rpx;
-          background-image: url('@/static/girl.png');
+          background-image: url("@/static/girl.png");
         }
       }
     }

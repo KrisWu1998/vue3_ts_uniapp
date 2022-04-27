@@ -9,18 +9,16 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import PayMoney from './paymoney.vue';
-import Recommend from './recommend.vue';
+import { defineComponent } from "vue";
+import PayMoney from "./paymoney.vue";
+import Recommend from "./recommend.vue";
 export default defineComponent({
   components: {
     PayMoney,
-    Recommend
+    Recommend,
   },
-  setup() {
-    
-  },
-})
+  setup() {},
+});
 </script>
 
 <style lang="less" scoped>
@@ -29,22 +27,22 @@ export default defineComponent({
   z-index: 999;
   width: 100%;
   padding-bottom: 40rpx;
-  background: #F7F8F9;
-  border-radius: 48rpx 48rpx 0 0 ;
+  background: #f7f8f9;
+  border-radius: 48rpx 48rpx 0 0;
   overflow: hidden;
   .head {
     position: relative;
     width: 100%;
     height: 60rpx;
-    background: #FFF;
-    .snaps{
+    background: #fff;
+    .snaps {
       position: absolute;
       top: 20rpx;
       left: 50%;
       width: 60rpx;
       height: 10rpx;
       margin-left: -30rpx;
-      background: #E2E2E2;
+      background: #e2e2e2;
       border-radius: 5rpx;
     }
   }

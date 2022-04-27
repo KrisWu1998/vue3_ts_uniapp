@@ -1,7 +1,7 @@
 <template>
-  <van-popup 
+  <van-popup
     v-model:show="isShow"
-    position="bottom" 
+    position="bottom"
     :style="{ height: '90%' }"
     round
   >
@@ -18,16 +18,13 @@
         </view>
       </view>
       <scroll-view class="content-wrap" scroll-y="true">
-        <view
-          v-for="(item, index) in list"
-          :key="index"
-          class="wrap-block"
-        >
+        <view v-for="(item, index) in list" :key="index" class="wrap-block">
           <view class="title">
-            {{item.label}}
+            {{ item.label }}
           </view>
           <CardItem
-            v-for="(childItem, childIndex) in (item.child || [])"
+            v-for="(childItem, childIndex) in item.child || []"
+            :key="childIndex"
             :info="childItem"
             :parentIndex="index"
             :childIndex="childIndex"
@@ -40,95 +37,95 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
-import CardItem from './cardItem.vue';
-import { Toast } from 'vant';
+import { defineComponent, reactive, toRefs } from "vue";
+import CardItem from "./cardItem.vue";
+import { Toast } from "vant";
 export default defineComponent({
   props: {
     isShow: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   components: {
-    CardItem
+    CardItem,
   },
-  setup (_, { emit }) {
+  setup(_, { emit }) {
     const state = reactive({
       moneyNum: 3347,
       list: [
         {
-          label: '新人专属',
+          label: "新人专属",
           child: [
             {
-              color: '#72D0A0',
-              label: '收藏人人租机小程序',
+              color: "#72D0A0",
+              label: "收藏人人租机小程序",
               isGet: true,
-              addMoney: 10
+              addMoney: 10,
             },
             {
-              color: 'yellow',
-              label: '进行实名认证',
+              color: "yellow",
+              label: "进行实名认证",
               isGet: false,
-              addMoney: 30
-            }
-          ]
+              addMoney: 30,
+            },
+          ],
         },
         {
-          label: '每天逛逛',
+          label: "每天逛逛",
           child: [
             {
-              color: '#72D0A0',
-              label: '逛一逛活动也',
+              color: "#72D0A0",
+              label: "逛一逛活动也",
               isGet: false,
-              addMoney: 10
+              addMoney: 10,
             },
             {
-              color: 'yellow',
-              label: '逛一逛首页',
+              color: "yellow",
+              label: "逛一逛首页",
               isGet: false,
-              addMoney: 30
+              addMoney: 30,
             },
             {
-              color: '#72D0A0',
-              label: '逛一逛生活号首页',
+              color: "#72D0A0",
+              label: "逛一逛生活号首页",
               isGet: false,
-              addMoney: 10
+              addMoney: 10,
             },
             {
-              color: 'yellow',
-              label: '去分享',
+              color: "yellow",
+              label: "去分享",
               isGet: false,
-              addMoney: 5
-            }
-          ]
-        }
-      ]
+              addMoney: 5,
+            },
+          ],
+        },
+      ],
     });
     const methods = reactive({
       // 修改是否已领取金币状态
-      setGetMoneyStatus (parantIndex: number, childIndex: number): void {
+      setGetMoneyStatus(parantIndex: number, childIndex: number): void {
         state.list[parantIndex].child[childIndex].isGet = true;
         const currentData = state.list[parantIndex].child[childIndex];
         // this.props.onAddUserMoney(currentData.addMoney);
-        emit('addUserMoney', currentData.addMoney);
+        emit("addUserMoney", currentData.addMoney);
         Toast.success({
-          type: 'success',
+          type: "success",
           message: `恭喜获得${currentData.addMoney}个租币!`,
-          duration: 1000
+          duration: 1000,
         });
       },
       // 关闭弹窗
-      handleClose ():void {
-        emit('confirm', false)
-      }
-    })
+      handleClose(): void {
+        emit("confirm", false);
+      },
+    });
     return {
       ...toRefs(state),
-      ...toRefs(methods)
-    }
-  }
-})
+      ...toRefs(methods),
+    };
+  },
+});
 </script>
 
 <style lang="less" scoped>
@@ -143,8 +140,8 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     padding: 32rpx 29rpx 22rpx 29rpx;
-    color: #FFF;
-    background-image: linear-gradient(#7AD38C, #40CBBE);
+    color: #fff;
+    background-image: linear-gradient(#7ad38c, #40cbbe);
     // border-top-left-radius: 48rpx;
     // border-top-right-radius: 48rpx;
     .title {
@@ -168,7 +165,7 @@ export default defineComponent({
       right: 29rpx;
       width: 54rpx;
       height: 54rpx;
-      border: 2rpx solid #FFF;
+      border: 2rpx solid #fff;
       border-radius: 50%;
       .square {
         position: relative;
@@ -176,7 +173,7 @@ export default defineComponent({
         height: 20rpx;
         transform: rotateZ(45deg);
         &::after {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
@@ -188,7 +185,7 @@ export default defineComponent({
           border-right: 4rpx solid #fff;
         }
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           bottom: 0;
           right: 0;
@@ -205,7 +202,7 @@ export default defineComponent({
   .content-wrap {
     flex: 1;
     padding: 22rpx 24rpx 49rpx 24rpx;
-    background: #E9FAF4;
+    background: #e9faf4;
     overflow-y: scroll;
     /* white-space: nowrap; */
     box-sizing: border-box;
@@ -217,7 +214,7 @@ export default defineComponent({
       .title {
         font-size: 34rpx;
         font-weight: bold;
-        color: #133C37;
+        color: #133c37;
         padding-left: 20rpx;
       }
     }

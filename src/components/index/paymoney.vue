@@ -13,36 +13,36 @@
 </template>
 
 <script>
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from "vue";
 
 export default defineComponent({
   setup() {
     const state = reactive({
       info: [
-        '../../static/shop.png',
-        '../../static/task.png',
-        '../../static/getMoney.png',
-        '../../static/shop.png',
-        '../../static/task.png',
-        '../../static/getMoney.png',
-      ]
+        "../../static/shop.png",
+        "../../static/task.png",
+        "../../static/getMoney.png",
+        "../../static/shop.png",
+        "../../static/task.png",
+        "../../static/getMoney.png",
+      ],
     });
     const methods = reactive({
-      getUrl (url) {
+      getUrl(url) {
         return `url(${new URL(url, import.meta.url).href})`;
       },
-    })
+    });
     return {
       ...toRefs(state),
-      ...toRefs(methods)
-    }
+      ...toRefs(methods),
+    };
   },
-})
+});
 </script>
 
 <style lang="less" scoped>
 .paymoney-box {
-  background: #FFF;
+  background: #fff;
   padding: 0 30rpx;
   padding-bottom: 30rpx;
   .title {
