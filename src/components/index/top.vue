@@ -5,10 +5,10 @@
       <view
         v-for="(item, index) in leftInfo"
         :key="index"
-        :style="{ backgroundImage: getUrl(item.url) }"
         class="icon reset-img"
         @tap="handleGoMeesage"
       >
+        <image :src="item.url" style="width: 56rpx; height: 72rpx" />
         <view class="tips" v-if="item.tipsNum">
           <text class="tips-text">{{ item.tipsNum }}</text>
         </view>
@@ -22,10 +22,7 @@
         @tap="handleTap(item, index)"
         class="tags-item"
       >
-        <view
-          :style="{ backgroundImage: getUrl(item.url) }"
-          class="tags-item-left reset-img"
-        />
+        <image :src="item.url" class="tags-item-left" />
         <text
           class="flex-alignt"
           :style="{ fontSize: item.isMoney ? '32rpx' : '22rpx' }"
@@ -47,10 +44,7 @@
           class="item"
         >
           {{ item.text }}
-          <view
-            :style="{ backgroundImage: getUrl(item.url) }"
-            class="img reset-img"
-          />
+          <image :src="item.url" class="img" />
         </view>
       </view>
       <view class="mid-bottom">
@@ -78,45 +72,45 @@ export default defineComponent({
     const state = reactive({
       leftInfo: [
         {
-          url: "../../static/msg.png",
+          url: "/static/msg.png",
           tipsNum: 12,
         },
         {
-          url: "../../static/rule.png",
+          url: "/static/rule.png",
           tipsNum: 2,
         },
       ],
       rightInfo: [
         {
-          url: "../../static/money.png",
+          url: "/static/money.png",
           isMoney: true,
           num: 32,
         },
         {
-          url: "../../static/signIn.png",
+          url: "/static/signIn.png",
           isSign: true,
           noSignIn: false,
         },
       ],
       midInfo: [
         {
-          url: "../../static/addMoney.png",
+          url: "/static/addMoney.png",
           text: "支付成功",
         },
         {
-          url: "../../static/addMoney.png",
+          url: "/static/addMoney.png",
           text: "支付成功",
         },
         {
-          url: "../../static/addMoney.png",
+          url: "/static/addMoney.png",
           text: "运动步数",
         },
         {
-          url: "../../static/addMoney_new.png",
+          url: "/static/addMoney_new.png",
           text: "新人专享",
         },
         {
-          url: "../../static/addMoney.png",
+          url: "/static/addMoney.png",
           text: "运动步数",
         },
       ],
@@ -124,9 +118,7 @@ export default defineComponent({
       stepNumber: 2748,
     });
     const methods = reactive({
-      getUrl(url: string) {
-        return `url(${new URL(url, import.meta.url).href})`;
-      },
+
       handleTap(item: Object, index: number): void {
         if (item.isSign) {
           // 签到切换

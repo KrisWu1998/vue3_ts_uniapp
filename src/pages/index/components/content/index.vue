@@ -1,7 +1,12 @@
 <template>
   <view class="content-box">
+    <!-- 背面打底 (走路赚租币) 图标 -->
     <Top ref="top" @confirm="handleChangePopupStatus" />
+
+    <!-- 内容区滑块 -->
     <Popup />
+
+    <!-- 租币领取任务 -->
     <MyPopup
       :isShow="isShow"
       @addUserMoney="addUserMoney"
@@ -22,12 +27,15 @@ export default defineComponent({
     MyPopup,
   },
   setup() {
+    // 获取top Dom
     const top = ref(null);
 
+    // state数据汇总
     const state = reactive({
       isShow: false,
     });
 
+    // 方法操作汇总
     const methods = reactive({
       addUserMoney(newMoney: number): void {
         const topDom = (top as any).value;

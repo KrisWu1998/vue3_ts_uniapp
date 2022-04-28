@@ -147,6 +147,23 @@ export default defineComponent({
         1: "../../static/message-tips.png",
         2: "../../static/message-book.png",
       },
+      // 消息模板
+      globalData_info: {
+        1: {
+          id: 11,
+          title: "活动通知",
+          content: "恭喜获得20个租币，请查收!",
+          time: "2020-03-23 14:30",
+          isRead: false,
+        },
+        2: {
+          id: 21,
+          title: "订单已取消",
+          content: "订单已成功取消，感谢您的关注",
+          time: "2020-03-23 14:30",
+          isRead: false,
+        },
+      },
     });
     const methods = reactive({
       handleGoBack() {
@@ -247,16 +264,15 @@ export default defineComponent({
       },
       onRefresh() {
         setTimeout(() => {
-          const { activeIndex, tabs, globalData } = state;
+          const { activeIndex, tabs, globalData, globalData_info } = state;
           const { id } = tabs[activeIndex];
           // 当前的消息列表
-          const currentList = globalData[id];
+          const currentTemplateData = globalData_info[id];
           // 当前Tabs项的消息数量
           const oldNum = tabs[activeIndex].number;
-          const pushList = JSON.parse(JSON.stringify(currentList));
-          pushList.forEach((item: any) => (item.isRead = false));
-          globalData[id].push(...pushList);
-          tabs[activeIndex].number = oldNum + pushList.length;
+          const obj = JSON.parse(JSON.stringify(currentTemplateData));
+          globalData[id].push(obj);
+          tabs[activeIndex].number = oldNum + 1;
           state.loading = false;
         }, 1000);
       },
